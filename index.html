@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>URL Shortner</title>
+</head>
+
+<body>
+    <h1>URL Shortner</h1>
+    <form>
+        <label for="urlInput"></label>
+        <input type="url" placeholder="Enter URL" id="urlInput"><br>
+        <button id="submitBtn">Submit</button>
+    </form>
+    <p id="genString" style="display: none;"></p>
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('click', () => {
+            let userInput = document.getElementById("urlInput").value;
+            fetch('/userInput', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userInput })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('genString').textContent = data;
+                    document.getElementById('genString').style.display = block;
+                });
+        });
+    </script>
+</body>
+
+</html>
