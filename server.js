@@ -34,3 +34,7 @@ app.get('/:tempString', async(req, res)=>{
 
     res.redirect(original.url);
 })
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
