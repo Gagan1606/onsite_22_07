@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/urlshortener')
     .then(() => console.log('connected to db'));
 
 
-const User = require('./user.js');
+const User = require('./models/user.js');
 
 app.post('/userInput', async (req, res) => {
     try {
