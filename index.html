@@ -8,25 +8,33 @@
 
 <body>
     <h1>URL Shortner</h1>
-    <form>
-        <label for="urlInput"></label>
+    <div>
+        <label for="urlInput">URL</label>
         <input type="url" placeholder="Enter URL" id="urlInput"><br>
+        <label for="customNameInput">Custom Name</label>
+        <input type="text" placeholder="Enter a custom name" id="customNameInput"><br>
         <button id="submitBtn">Submit</button>
-    </form>
+    </div>
     <p id="genString" style="display: none;"></p>
     <script>
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.addEventListener('click', () => {
             let userInput = document.getElementById("urlInput").value;
+            let customNameInput = document.getElementById("customNameInput").value;
             fetch('/userInput', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userInput })
+                body: JSON.stringify({ userInput, customNameInput })
             })
                 .then(res => res.json())
                 .then(data => {
-                    document.getElementById('genString').textContent = data;
-                    document.getElementById('genString').style.display = block;
+                    document.getElementById('genString').style.display = 'block';
+                    if(data.shorturl){
+                    document.getElementById('genString').textContent = data.shorturl;}
+                    else{
+                        document.getElementById('genString').textContent = data.message;
+                    }
+
                 });
         });
     </script>
